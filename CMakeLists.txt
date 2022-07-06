@@ -72,30 +72,28 @@ CPMAddPackage(
             # path to exclude (optional, supports regular expressions)
             "CMAKE_FORMAT_EXCLUDE (cmake/.*|_deps/.*|cpm-package-lock\.cmake)"
 )
-add_subdirectory(libs)
+# add_subdirectory(libs)
 
 CPMAddPackage(
     GITHUB_REPOSITORY jarro2783/cxxopts
     VERSION 3.0.0
     OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
 )
-add_subdirectory(apps)
 
-# PackageProject.cmake will be used to make our target installable
-CPMAddPackage("gh:TheLartians/PackageProject.cmake@1.8.0")
+file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
 
-# ---- Create an installable target ----
-# this allows users to install and find the library via `find_package()`. the location where the project's version
-# header will be placed should match the project's regular header paths
-string(TOLOWER greeter/version.h VERSION_HEADER_LOCATION)
-packageProject(
-    NAME greeter
-    VERSION ${PROJECT_VERSION}
-    NAMESPACE greeter
-    BINARY_DIR ${PROJECT_BINARY_DIR}
-    INCLUDE_DIR ${PROJECT_SOURCE_DIR}/libs/greeter/include
-    INCLUDE_DESTINATION include/${PROJECT_NAME}-${PROJECT_VERSION}
-    VERSION_HEADER "${VERSION_HEADER_LOCATION}"
-    COMPATIBILITY SameMajorVersion
-    DEPENDENCIES "fmt 8.1.1"
-)
+add_executable(IntroApp ${sources})
+
+target_compile_features(IntroApp PRIVATE cxx_std_17)
+set_target_properties(IntroApp PROPERTIES OUTPUT_NAME "IntroApp")
+target_set_warnings(
+    IntroApp
+    ENABLE
+    ALL
+    AS_ERROR
+    ALL
+    DISABLE
+    Annoying
+) # Set warnings (if needed).
+
+target_link_libraries(IntroApp cxxopts)
