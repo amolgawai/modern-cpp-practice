@@ -17,6 +17,7 @@ The repository is based on [[https://github.com/amolgawai/modern-cpp-cmake-start
 #+END_SRC
 * ☛ TODO Practice Plan
 * References
+- [[https://www.manning.com/books/learn-c-plus-plus-by-example][Book - Learn C++ by example]]
 - [[https://ccc.codes][Book - C++ Crash Course]]
 - [[https://www.stroustrup.com/tour2.html][Book - A Tour of C++]]
 - [[https://changkun.de/modern-cpp/pdf/modern-cpp-tutorial-en-us.pdf][Modern C++ Tutorial]]
