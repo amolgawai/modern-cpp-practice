@@ -4,6 +4,7 @@
 * Introduction
 This repository is for practicing and learning modern c++ (post c++11) and modern cmake (post 3.0)
 The repository is based on [[https://github.com/amolgawai/modern-cpp-cmake-starter][my modern-cpp-cmake-starter]].
+The code is for practice and hence might not be the best according to standards and best practices.
 * * Building with CMake
 #+BEGIN_SRC shell
   # configure build with ninja

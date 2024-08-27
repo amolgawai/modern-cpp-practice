@@ -80,9 +80,11 @@ CPMAddPackage(
     OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
 )
 
-file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp)
+file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/bk_lrn_cpp_by_exmpl/*.cpp)
 
-add_executable(IntroApp ${sources})
+add_executable(IntroApp)
+add_subdirectory("src")
+target_include_directories(IntroApp PRIVATE "${PROJECT_SOURCE_DIR}")
 
 target_compile_features(IntroApp PRIVATE cxx_std_17)
 set_target_properties(IntroApp PROPERTIES OUTPUT_NAME "IntroApp")
