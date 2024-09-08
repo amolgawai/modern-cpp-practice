@@ -18,17 +18,21 @@ auto process_options(int argc, char** argv) -> int {
     cxxopts::Options options(*argv, "A program to welcome the world!");
 
     options.add_options()("h,help", "Show help")("v,version", "Print the current version number");
+    try {
+        auto result{options.parse(argc, argv)};
 
-    auto result = options.parse(argc, argv);
+        if (result["help"].as<bool>()) {
+            std::cout << options.help() << std::endl;
+            return 0;
+        }
 
-    if (result["help"].as<bool>()) {
-        std::cout << options.help() << std::endl;
-        return 0;
-    }
-
-    if (result["version"].as<bool>()) {
-        std::cout << "1.0.0" << std::endl;
-        return 0;
+        if (result["version"].as<bool>()) {
+            std::cout << "1.0.0" << std::endl;
+            return 0;
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Error parsing options: " << e.what() << std::endl;
+        return 1;
     }
 
     return 1;
