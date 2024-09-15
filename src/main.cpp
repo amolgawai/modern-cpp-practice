@@ -7,10 +7,10 @@
 namespace cpp_practice {
     class DemoExample : public Example {
     public:
-        auto name() const -> std::string { return std::string{"demo"}; };
-        auto description() const -> std::string { return std::string{"A demo example"}; }
-        void run() const { std::cout << "Demo is running now ...\n Finished\n"; };
-        ~DemoExample(){};
+        auto name() const -> std::string override { return std::string{"demo"}; };
+        auto description() const -> std::string override { return std::string{"A demo example"}; }
+        void run() const override { std::cout << "Demo is running now ...\n Finished\n"; };
+        ~DemoExample() override = default;
     };
 }  // namespace cpp_practice
 
