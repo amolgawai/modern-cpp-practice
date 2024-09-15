@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "../example_cls.hpp"
+#include "example_cls.hpp"
 
 namespace lrn_cpp_by_exmpl {
 
