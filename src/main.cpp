@@ -1,8 +1,11 @@
-#include <cxxopts.hpp>
-#include <iostream>
-
-#include "bk_lrn_cpp_by_exmpl/example_runner.hpp"
-#include "example_cls.hpp"
+#include <cxxopts.hpp>                             // for Options, OptionAdder
+#include <exception>                               // for exception
+#include <iostream>                                // for char_traits, basic...
+#include <memory>                                  // for unique_ptr
+#include <string>                                  // for basic_string, string
+#include <vector>                                  // for vector
+#include "bk_lrn_cpp_by_exmpl/example_runner.hpp"  // for get_examples
+#include "example_cls.hpp"                         // for Example
 
 namespace cpp_practice {
     class DemoExample : public Example {

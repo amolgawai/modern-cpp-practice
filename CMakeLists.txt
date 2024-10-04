@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.23)
 
 # ---- Project ----
 
@@ -86,7 +86,7 @@ add_executable(IntroApp)
 add_subdirectory("src")
 target_include_directories(IntroApp PRIVATE "${PROJECT_SOURCE_DIR}")
 
-target_compile_features(IntroApp PRIVATE cxx_std_17)
+target_compile_features(IntroApp PRIVATE cxx_std_20)
 set_target_properties(IntroApp PROPERTIES OUTPUT_NAME "IntroApp")
 target_set_warnings(
     IntroApp
