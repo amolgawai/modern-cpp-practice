@@ -5,3 +5,4 @@ target_sources(IntroApp PRIVATE
     )
 target_include_directories(IntroApp PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_subdirectory("bk_lrncppbyex")
+add_subdirectory("utils")

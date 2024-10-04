@@ -1,6 +1,5 @@
 #include <cxxopts.hpp>                             // for Options, OptionAdder
 #include <exception>                               // for exception
-#include <iostream>                                // for char_traits, basic...
 #include <memory>                                  // for unique_ptr
 #include <string>                                  // for basic_string, string
 
@@ -8,16 +7,7 @@
 #include "bk_lrncppbyex_provider.hpp"  // for get_examples
 #include "example.hpp"                         // for Example
 #include "example_runner.hpp"
-
-namespace cpp_practice {
-    class DemoExample : public Example {
-    public:
-        auto name() const -> std::string override { return std::string{"demo"}; };
-        auto description() const -> std::string override { return std::string{"A demo example"}; }
-        void run() const override { std::cout << "Demo is running now ...\n Finished\n"; };
-        ~DemoExample() override = default;
-    };
-}  // namespace cpp_practice
+#include "cli_io.hpp"
 
 auto process_options(int argc, char** argv) -> int {
     cxxopts::Options options(*argv, "A program to welcome the world!");
@@ -36,7 +26,7 @@ auto process_options(int argc, char** argv) -> int {
             return 0;
         }
     } catch (const std::exception& e) {
-        std::cerr << "Error parsing options: " << e.what() << std::endl;
+        cli_io::show_msg_error("Error parsing options: " + std::string(e.what()));
         return 1;
     }
 
@@ -48,11 +38,7 @@ auto main(int argc, char** argv) -> int {
     if (res == 0) {
         return 0;
     }
-    std::cout << "Hello Modern C++" << std::endl;
-
-    // auto demo1 = cpp_practice::DemoExample{};
-    // std::cout << "running - " << demo1.name() << "\n" << demo1.description() << "\n";
-    // demo1.run();
+    cli_io::show_msg_title("Hello Modern C++");
 
     auto bkLrnCPPBYExProvider = bk_LrnCPPByEx::LrnCPPByExProvider{};
     auto examples1 = bkLrnCPPBYExProvider.provideExamples();

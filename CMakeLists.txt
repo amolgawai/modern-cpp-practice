@@ -80,7 +80,8 @@ CPMAddPackage(
     OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
 )
 
-file(GLOB sources CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/bk_lrn_cpp_by_exmpl/*.cpp)
+CPMAddPackage("gh:eliaskosunen/scnlib@1.1.2")
+
 
 add_executable(IntroApp)
 add_subdirectory("src")
@@ -98,4 +99,4 @@ target_set_warnings(
     Annoying
 ) # Set warnings (if needed).
 
-target_link_libraries(IntroApp cxxopts)
+target_link_libraries(IntroApp cxxopts::cxxopts scn::scn fmt::fmt)
