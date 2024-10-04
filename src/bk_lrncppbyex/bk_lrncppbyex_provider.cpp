@@ -4,6 +4,7 @@
 
 #include "app_defs.hpp"
 #include "example.hpp"
+#include "pascles_triangle.hpp"
 #include "bk_lrncppbyex_provider.hpp"
 
 namespace bk_LrnCPPByEx {
@@ -19,6 +20,7 @@ namespace bk_LrnCPPByEx {
     auto LrnCPPByExProvider::provideExamples() -> ExamplePtrContainer {
         auto examples = ExamplePtrContainer{};
         examples.emplace_back(std::make_unique<Demo>());
+        examples.emplace_back(std::make_unique<PasclesTriangle>());
         return examples;
     }
 }  // namespace lrn_cpp_by_exmpl
