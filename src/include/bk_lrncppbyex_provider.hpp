@@ -1,8 +1,5 @@
 #pragma once
 
-#include <memory>
-#include <vector>
-
 #include "app_defs.hpp"
 #include "examples_provider.hpp"
 

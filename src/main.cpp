@@ -1,11 +1,8 @@
 #include <cxxopts.hpp>                             // for Options, OptionAdder
 #include <exception>                               // for exception
-#include <memory>                                  // for unique_ptr
 #include <string>                                  // for basic_string, string
 
-// #include "app_defs.hpp"
 #include "bk_lrncppbyex_provider.hpp"  // for get_examples
-#include "example.hpp"                         // for Example
 #include "example_runner.hpp"
 #include "cli_io.hpp"
 

@@ -7,8 +7,8 @@
 #include <scn/scn.h>
 
 #include <string>
-#include <iostream>
-#include <sstream>
+#include <iostream>        // IWYU pragma: keep
+#include <sstream>        // IWYU pragma: keep
 #include <vector>
 
 // stringstream can't handle uint_8, see following
