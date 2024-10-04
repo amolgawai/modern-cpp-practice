@@ -3,9 +3,11 @@
 #include <iostream>                                // for char_traits, basic...
 #include <memory>                                  // for unique_ptr
 #include <string>                                  // for basic_string, string
-#include <vector>                                  // for vector
-#include "bk_lrn_cpp_by_exmpl/example_runner.hpp"  // for get_examples
-#include "example_cls.hpp"                         // for Example
+
+// #include "app_defs.hpp"
+#include "bk_lrncppbyex_provider.hpp"  // for get_examples
+#include "example.hpp"                         // for Example
+#include "example_runner.hpp"
 
 namespace cpp_practice {
     class DemoExample : public Example {
@@ -48,15 +50,14 @@ auto main(int argc, char** argv) -> int {
     }
     std::cout << "Hello Modern C++" << std::endl;
 
-    auto demo1 = cpp_practice::DemoExample{};
-    std::cout << "running - " << demo1.name() << "\n" << demo1.description() << "\n";
-    demo1.run();
+    // auto demo1 = cpp_practice::DemoExample{};
+    // std::cout << "running - " << demo1.name() << "\n" << demo1.description() << "\n";
+    // demo1.run();
 
-    auto examples1 = lrn_cpp_by_exmpl::get_examples();
-    for (const auto& example : examples1) {
-        std::cout << "running - " << example->name() << "\n" << example->description() << "\n";
-        example->run();
-    }
+    auto bkLrnCPPBYExProvider = bk_LrnCPPByEx::LrnCPPByExProvider{};
+    auto examples1 = bkLrnCPPBYExProvider.provideExamples();
+    auto exampleRunner = cpp_practice::ExampleRunner{};
+    exampleRunner.runExamples(examples1);
 
     return 0;
 }

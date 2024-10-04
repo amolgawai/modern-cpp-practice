@@ -1,12 +1,12 @@
-#include "example_runner.hpp"
-
 #include <iostream>
 #include <memory>
 #include <vector>
 
-#include "example_cls.hpp"
+#include "app_defs.hpp"
+#include "example.hpp"
+#include "bk_lrncppbyex_provider.hpp"
 
-namespace lrn_cpp_by_exmpl {
+namespace bk_LrnCPPByEx {
 
     class Demo : public cpp_practice::Example {
     public:
@@ -16,9 +16,9 @@ namespace lrn_cpp_by_exmpl {
         ~Demo() override = default;
     };
 
-    auto get_examples() -> std::vector<std::unique_ptr<cpp_practice::Example>> {
-        auto examples = std::vector<std::unique_ptr<cpp_practice::Example>>{};
-        examples.push_back(std::make_unique<Demo>());
+    auto LrnCPPByExProvider::provideExamples() -> ExamplePtrContainer {
+        auto examples = ExamplePtrContainer{};
+        examples.emplace_back(std::make_unique<Demo>());
         return examples;
     }
 }  // namespace lrn_cpp_by_exmpl
