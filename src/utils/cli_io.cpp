@@ -1,8 +1,7 @@
 #include "cli_io.hpp"
-#include <fmt/color.h>
+#include <fmt/color.h>  // for color, emphasis, fg, operator|, print, text_s...
 #include <fmt/core.h>
-
-#include <string>
+#include <string>       // for string
 
 namespace cli_io {
 void show_msg_title(const std::string &msg) {

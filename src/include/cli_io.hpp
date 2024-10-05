@@ -1,15 +1,14 @@
 #pragma once
 
-#include <fmt/core.h>
-#include <fmt/ranges.h>
-#include <fmt/format.h>
-#include <fmt/color.h>
+#include <fmt/color.h>        // for color, emphasis, fg, operator|, print
+#include <fmt/core.h>         // for format_string, type_identity
+#include <iostream>           // IWYU pragma: keep
+#include <sstream>            // IWYU pragma: keep
+#include <string>             // for string, basic_string
+#include <vector>             // for vector
 #include <scn/scn.h>
-
-#include <string>
-#include <iostream>        // IWYU pragma: keep
-#include <sstream>        // IWYU pragma: keep
-#include <vector>
+// #include "scn/detail/file.h"  // for cstdin
+// #include "scn/scan/list.h"    // for list_until, scan_list_ex
 
 // stringstream can't handle uint_8, see following
 // https://stackoverflow.com/questions/54627170/read-uint8-t-from-stdstingstream-as-a-numeric-type

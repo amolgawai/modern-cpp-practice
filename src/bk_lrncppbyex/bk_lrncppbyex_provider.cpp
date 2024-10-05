@@ -1,11 +1,10 @@
-#include <iostream>
-#include <memory>
-#include <vector>
-
-#include "app_defs.hpp"
-#include "example.hpp"
-#include "pascles_triangle.hpp"
-#include "bk_lrncppbyex_provider.hpp"
+#include <iostream>                    // for basic_ostream, operator<<, cout
+#include <memory>                      // for unique_ptr, make_unique
+#include <string>                      // for basic_string, string
+#include "app_defs.hpp"                // for ExamplePtrContainer
+#include "bk_lrncppbyex_provider.hpp"  // for LrnCPPByExProvider
+#include "example.hpp"                 // for Example
+#include "pascles_triangle.hpp"        // for PasclesTriangle
 
 namespace bk_LrnCPPByEx {
 
