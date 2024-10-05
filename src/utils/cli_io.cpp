@@ -1,6 +1,5 @@
 #include "cli_io.hpp"
 #include <fmt/color.h>  // for color, emphasis, fg, operator|, print, text_s...
-#include <fmt/core.h>
 #include <string>       // for string
 
 namespace cli_io {
