@@ -10,8 +10,13 @@ namespace bk_LrnCPPByEx {
 
     class Demo : public cpp_practice::Example {
     public:
-        auto name() const -> std::string override { return std::string{"Example 1"}; };
-        auto description() const -> std::string override { return std::string{"A demo example"}; }
+        Demo() = default;
+        Demo(const Demo &) = default;
+        Demo(Demo &&) = delete;
+        Demo &operator=(const Demo &) = default;
+        Demo &operator=(Demo &&) = delete;
+        [[nodiscard]] auto name() const -> std::string override { return std::string{"Example 1"}; };
+        [[nodiscard]] auto description() const -> std::string override { return std::string{"A demo example"}; }
         void run() const override { std::cout << "Demo is running now ...\n Finished\n"; };
         ~Demo() override = default;
     };
