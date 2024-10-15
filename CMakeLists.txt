@@ -11,6 +11,50 @@ project(
 )
 
 include(CMakePrintHelpers)
+
+# Include stuff. No change needed.
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
+
+include(CPM)
+# ---- Add dependencies via CPM ----
+# see https://github.com/TheLartians/CPM.cmake for more info
+
+CPMAddPackage(
+    NAME fmt
+    GIT_TAG 8.1.1
+    GITHUB_REPOSITORY fmtlib/fmt
+    OPTIONS "FMT_INSTALL YES" # create an installable target
+)
+CPMAddPackage("gh:onqtam/doctest@2.4.9")
+# CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
+CPMAddPackage(
+    NAME Format.cmake
+    VERSION 1.7.3
+    GITHUB_REPOSITORY TheLartians/Format.cmake
+    OPTIONS # set to yes skip cmake formatting
+            "FORMAT_SKIP_CMAKE NO"
+            # path to exclude (optional, supports regular expressions)
+            "CMAKE_FORMAT_EXCLUDE (cmake/.*|_deps/.*|cpm-package-lock\.cmake)"
+)
+
+CPMAddPackage(
+    GITHUB_REPOSITORY jarro2783/cxxopts
+    VERSION 3.0.0
+    OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
+)
+
+CPMAddPackage(
+    GITHUB_REPOSITORY eliaskosunen/scnlib
+    VERSION 3.0.1
+)
+
+include(ConfigSafeGuards)
+include(Colors)
+include(LTO)
+include(Misc)
+include(Warnings)
+include(tools)
+
 # Options: Things you can set via commandline options to cmake (e.g. -DENABLE_LTO=[ON|OFF])
 option(ENABLE_WARNINGS_SETTINGS "Allow target_set_warnings to add flags and defines.
                                  Set this to OFF if you want to provide your own warning parameters." ON
@@ -19,16 +63,6 @@ option(ENABLE_LTO "Enable link time optimization" ON)
 option(ENABLE_CODE_COVERAGE "Enable test coverage" OFF)
 # option(ENABLE_DOCTESTS "Include tests in the library. Setting this to OFF will remove all doctest related code. Tests
 # in tests/*.cpp will still be enabled." ON)
-
-# Include stuff. No change needed.
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
-include(ConfigSafeGuards)
-include(Colors)
-include(LTO)
-include(Misc)
-include(Warnings)
-include(CPM)
-include(tools)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
@@ -52,35 +86,6 @@ endif()
 # Check for LTO support.
 find_lto(CXX)
 
-# ---- Add dependencies via CPM ----
-# see https://github.com/TheLartians/CPM.cmake for more info
-
-CPMAddPackage(
-    NAME fmt
-    GIT_TAG 8.1.1
-    GITHUB_REPOSITORY fmtlib/fmt
-    OPTIONS "FMT_INSTALL YES" # create an installable target
-)
-CPMAddPackage("gh:onqtam/doctest@2.4.9")
-# CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
-CPMAddPackage(
-    NAME Format.cmake
-    VERSION 1.7.3
-    GITHUB_REPOSITORY TheLartians/Format.cmake
-    OPTIONS # set to yes skip cmake formatting
-            "FORMAT_SKIP_CMAKE NO"
-            # path to exclude (optional, supports regular expressions)
-            "CMAKE_FORMAT_EXCLUDE (cmake/.*|_deps/.*|cpm-package-lock\.cmake)"
-)
-# add_subdirectory(libs)
-
-CPMAddPackage(
-    GITHUB_REPOSITORY jarro2783/cxxopts
-    VERSION 3.0.0
-    OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
-)
-
-CPMAddPackage("gh:eliaskosunen/scnlib@1.1.2")
 
 
 add_executable(IntroApp)

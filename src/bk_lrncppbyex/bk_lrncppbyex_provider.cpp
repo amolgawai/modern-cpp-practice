@@ -1,20 +1,22 @@
-#include <iostream>                    // for basic_ostream, operator<<, cout
-#include <memory>                      // for unique_ptr, make_unique
-#include <string>                      // for basic_string, string
-#include "app_defs.hpp"                // for ExamplePtrContainer
 #include "bk_lrncppbyex_provider.hpp"  // for LrnCPPByExProvider
-#include "example.hpp"                 // for Example
-#include "pascles_triangle.hpp"        // for PasclesTriangle
+
+#include <iostream>  // for basic_ostream, operator<<, cout
+#include <memory>    // for unique_ptr, make_unique
+#include <string>    // for basic_string, string
+
+#include "app_defs.hpp"          // for ExamplePtrContainer
+#include "example.hpp"           // for Example
+#include "pascles_triangle.hpp"  // for PasclesTriangle
 
 namespace bk_LrnCPPByEx {
 
     class Demo : public cpp_practice::Example {
     public:
         Demo() = default;
-        Demo(const Demo &) = default;
-        Demo(Demo &&) = delete;
-        Demo &operator=(const Demo &) = default;
-        Demo &operator=(Demo &&) = delete;
+        Demo(const Demo &) = delete;
+        Demo &operator=(const Demo &) = delete;
+        Demo(Demo &&) = default;
+        Demo &operator=(Demo &&) = default;
         [[nodiscard]] auto name() const -> std::string override { return std::string{"Example 1"}; };
         [[nodiscard]] auto description() const -> std::string override { return std::string{"A demo example"}; }
         void run() const override { std::cout << "Demo is running now ...\n Finished\n"; };
@@ -27,4 +29,4 @@ namespace bk_LrnCPPByEx {
         examples.emplace_back(std::make_unique<PasclesTriangle>());
         return examples;
     }
-}  // namespace lrn_cpp_by_exmpl
+}  // namespace bk_LrnCPPByEx
