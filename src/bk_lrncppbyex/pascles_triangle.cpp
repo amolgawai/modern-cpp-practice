@@ -26,8 +26,9 @@ namespace bk_LrnCPPByEx {
     }
 
     void PasclesTriangle::run() const {
-        std::cout << "Running Pascales Triangle Example\n";
+        cli_io::show_msg_info("Running Pascales Triangle Example\n");
         const auto numRows = cli_io::get_single_value<int>("How many rows of Pascles Triangle you want?");
+        cli_io::show_msg_info("Generating Pascles Triangle for {} rows\n", numRows);
         auto pascles_triangle = generate_triangles(numRows);
         for (const auto& a_row : pascles_triangle) {
             for (const auto& element : a_row) {

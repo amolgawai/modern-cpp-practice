@@ -17,9 +17,9 @@
 namespace cli_io {
 
     // show messages to user
-    void show_msg_title(const std::string &msg);
-    void show_msg_subtitle(const std::string &msg);
-    void show_msg_error(const std::string &msg);
+    void show_msg_title(const std::string_view msg);
+    void show_msg_subtitle(const std::string_view msg);
+    void show_msg_error(const std::string_view msg);
     template <typename... T> void show_msg_info(fmt::format_string<T...> format, T &&...args) {
         fmt::print(format, args...);
     };
