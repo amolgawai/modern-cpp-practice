@@ -20,6 +20,7 @@ namespace cli_io {
     void show_msg_title(const std::string_view msg);
     void show_msg_subtitle(const std::string_view msg);
     void show_msg_error(const std::string_view msg);
+    void show_section_separator(const char sep = ' ');
     template <typename... T> void show_msg_info(fmt::format_string<T...> format, T &&...args) {
         fmt::print(format, args...);
     };

@@ -12,6 +12,7 @@ namespace cpp_practice {
         for (const auto& example : examples) {
             cli_io::show_msg_subtitle("Running - " + example->name() + "\n" + example->description());
             example->run();
+            cli_io::show_section_separator('=');
         }
     };
 }  // namespace cpp_practice

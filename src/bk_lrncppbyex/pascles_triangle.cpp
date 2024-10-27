@@ -1,7 +1,7 @@
 #include "pascles_triangle.hpp"
 
 #include <cstddef>
-#include <iostream>
+#include <string>
 #include <vector>
 
 #include "cli_io.hpp"
@@ -25,16 +25,27 @@ namespace bk_LrnCPPByEx {
         return triangles;
     }
 
+    void show_triangles(const std::vector<intVec>& pascles_triangle) {
+        size_t last_row_size = pascles_triangle.back().size();
+        std::string spaces(last_row_size * 3, ' ');
+        for (const auto& a_row : pascles_triangle) {
+            cli_io::show_msg_info("{}", spaces);
+            size_t spaces_size = spaces.size();
+            if (spaces_size > 3) {
+                spaces.resize(spaces_size - 3);
+            }
+            for (const auto& element : a_row) {
+                // cli_io::show_msg_info("{:^{}}", element, 6);
+                cli_io::show_msg_info("{:^6}", element);
+            }
+            cli_io::show_msg_info("\n");
+        }
+    }
     void PasclesTriangle::run() const {
         cli_io::show_msg_info("Running Pascales Triangle Example\n");
         const auto numRows = cli_io::get_single_value<int>("How many rows of Pascles Triangle you want?");
         cli_io::show_msg_info("Generating Pascles Triangle for {} rows\n", numRows);
         auto pascles_triangle = generate_triangles(numRows);
-        for (const auto& a_row : pascles_triangle) {
-            for (const auto& element : a_row) {
-                cli_io::show_msg_info("{} ", element);
-            }
-            std::cout << "\n";
-        }
+        show_triangles(pascles_triangle);
     };
 }  // namespace bk_LrnCPPByEx
