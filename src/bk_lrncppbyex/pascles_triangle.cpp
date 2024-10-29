@@ -1,7 +1,6 @@
 #include "pascles_triangle.hpp"
 
 #include <cstddef>
-#include <string>
 #include <vector>
 
 #include "cli_io.hpp"
@@ -49,3 +48,19 @@ namespace bk_LrnCPPByEx {
         show_triangles(pascles_triangle);
     };
 }  // namespace bk_LrnCPPByEx
+
+#include <doctest/doctest.h>
+
+TEST_CASE("Pascles Triangle Tests") {
+    constexpr int num_rows = 10;
+    auto test_vec = bk_LrnCPPByEx::generate_triangles(num_rows);
+    SUBCASE("01.") { CHECK(test_vec.size() == 10); }
+    SUBCASE("02.") {
+        [[maybe_unused]]size_t row_size = 1;
+        for ([[maybe_unused]] const auto& row : test_vec) {
+            CHECK(row.front() == 1);
+            CHECK(row.back() == 1);
+            CHECK(row.size() == row_size++);
+        }
+    }
+}

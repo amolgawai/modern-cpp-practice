@@ -25,7 +25,7 @@ CPMAddPackage(
     GITHUB_REPOSITORY fmtlib/fmt
     OPTIONS "FMT_INSTALL YES" # create an installable target
 )
-CPMAddPackage("gh:onqtam/doctest@2.4.9")
+CPMAddPackage("gh:onqtam/doctest@2.4.11")
 # CPMAddPackage("gh:TheLartians/Format.cmake@1.7.3")
 CPMAddPackage(
     NAME Format.cmake
@@ -43,10 +43,10 @@ CPMAddPackage(
     OPTIONS "CXXOPTS_BUILD_EXAMPLES NO" "CXXOPTS_BUILD_TESTS NO" "CXXOPTS_ENABLE_INSTALL YES"
 )
 
-CPMAddPackage(
-    GITHUB_REPOSITORY eliaskosunen/scnlib
-    VERSION 3.0.1
-)
+# CPMAddPackage(
+#     GITHUB_REPOSITORY eliaskosunen/scnlib
+#     VERSION 3.0.1
+# )
 
 include(ConfigSafeGuards)
 include(Colors)
@@ -71,7 +71,9 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
 
     # Let's nicely support folders in IDEs
     set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-
+    # enable building of unit tests
+    option( ENABLE_TESTING "Build unit tests" ON )
+    message( "=====> ENABLE_TESTING: ${ENABLE_TESTING}." )
     # Testing only available if this is the main app Note this needs to be done in the main CMakeLists since it calls
     # enable_testing, which must be in the main CMakeLists.
     include(CTest)
@@ -89,8 +91,18 @@ find_lto(CXX)
 
 
 add_executable(IntroApp)
-add_subdirectory("src")
+target_compile_definitions(IntroApp PRIVATE -DDOCTEST_CONFIG_DISABLE)
 target_include_directories(IntroApp PRIVATE "${PROJECT_SOURCE_DIR}")
+if(ENABLE_TESTING)
+    enable_testing()
+    add_executable(main_tests)
+    target_compile_features(main_tests PRIVATE cxx_std_20)
+    target_include_directories(main_tests PRIVATE "${PROJECT_SOURCE_DIR}")
+    target_link_libraries(main_tests PUBLIC fmt::fmt doctest::doctest)
+else()
+    add_definitions( "-DDOCTEST_CONFIG_DISABLE" )
+endif()
+add_subdirectory("src")
 
 target_compile_features(IntroApp PRIVATE cxx_std_20)
 set_target_properties(IntroApp PROPERTIES OUTPUT_NAME "IntroApp")
@@ -104,4 +116,5 @@ target_set_warnings(
     Annoying
 ) # Set warnings (if needed).
 
-target_link_libraries(IntroApp cxxopts::cxxopts scn::scn fmt::fmt)
+# target_link_libraries(IntroApp cxxopts::cxxopts fmt::fmt)
+target_link_libraries(IntroApp PUBLIC cxxopts::cxxopts fmt::fmt doctest::doctest)
