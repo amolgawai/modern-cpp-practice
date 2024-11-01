@@ -49,7 +49,10 @@ namespace bk_LrnCPPByEx {
     };
 }  // namespace bk_LrnCPPByEx
 
+// Tests for the core triangle generation algo
+
 #include <doctest/doctest.h>
+#include <numeric>
 
 TEST_CASE("Pascles Triangle Tests") {
     constexpr int num_rows = 10;
@@ -57,10 +60,13 @@ TEST_CASE("Pascles Triangle Tests") {
     SUBCASE("01.") { CHECK(test_vec.size() == 10); }
     SUBCASE("02.") {
         [[maybe_unused]]size_t row_size = 1;
+        [[maybe_unused]] int expected_row_total = 1;
         for ([[maybe_unused]] const auto& row : test_vec) {
             CHECK(row.front() == 1);
             CHECK(row.back() == 1);
             CHECK(row.size() == row_size++);
+            CHECK(std::accumulate(row.begin(), row.end(), 0) == expected_row_total);
+            expected_row_total *= 2;
         }
     }
 }
