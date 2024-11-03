@@ -16,7 +16,8 @@ namespace cli_io {
     void show_msg_error(const std::string_view msg) { fmt::print(fg(fmt::color::orange_red), "{}\n", msg); }
 
     void show_section_separator(const char sep) {
-        std::string section_sep(10, sep);
+        const int sep_length = 15;
+        std::string section_sep(sep_length, sep);
         fmt::print(fg(fmt::color::dark_cyan) ,"{}\n", section_sep);
     }
 }  // namespace cli_io

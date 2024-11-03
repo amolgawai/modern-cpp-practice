@@ -1,6 +1,7 @@
 #include "pascles_triangle.hpp"
 
 #include <cstddef>
+#include <ranges>
 #include <vector>
 
 #include "cli_io.hpp"
@@ -24,18 +25,28 @@ namespace bk_LrnCPPByEx {
         return triangles;
     }
 
-    void show_triangles(const std::vector<intVec>& pascles_triangle) {
+    void show_triangles(const std::vector<intVec>& pascles_triangle, bool show_sierpinsky = false) {
         size_t last_row_size = pascles_triangle.back().size();
-        std::string spaces(last_row_size * 3, ' ');
+        size_t spacer{3};
+        if (show_sierpinsky) {
+            spacer = 1;
+        }
+        std::string spaces(last_row_size * spacer, ' ');
         for (const auto& a_row : pascles_triangle) {
             cli_io::show_msg_info("{}", spaces);
             size_t spaces_size = spaces.size();
-            if (spaces_size > 3) {
-                spaces.resize(spaces_size - 3);
+            if (spaces_size > spacer) {
+                spaces.resize(spaces_size - spacer);
             }
-            for (const auto& element : a_row) {
-                // cli_io::show_msg_info("{:^{}}", element, 6);
-                cli_io::show_msg_info("{:^6}", element);
+            if (show_sierpinsky) {
+                auto odd_symbol_row = a_row | std::views::transform([](int x) { return (x % 2) != 0 ? '*' : ' '; });
+                for (const auto& element : odd_symbol_row) {
+                    cli_io::show_msg_info("{} ", element);
+                }
+            } else {
+                for (const auto& element : a_row) {
+                    cli_io::show_msg_info("{:^6}", element);
+                }
             }
             cli_io::show_msg_info("\n");
         }
@@ -46,27 +57,39 @@ namespace bk_LrnCPPByEx {
         cli_io::show_msg_info("Generating Pascles Triangle for {} rows\n", numRows);
         auto pascles_triangle = generate_triangles(numRows);
         show_triangles(pascles_triangle);
+        cli_io::show_msg_info("Sierpinsky Triangle of the Pascale's traingle is \n");
+        show_triangles(pascles_triangle, true);
     };
 }  // namespace bk_LrnCPPByEx
 
 // Tests for the core triangle generation algo
 
 #include <doctest/doctest.h>
+
 #include <numeric>
 
 TEST_CASE("Pascles Triangle Tests") {
     constexpr int num_rows = 10;
     auto test_vec = bk_LrnCPPByEx::generate_triangles(num_rows);
-    SUBCASE("01.") { CHECK(test_vec.size() == 10); }
-    SUBCASE("02.") {
-        [[maybe_unused]]size_t row_size = 1;
+    SUBCASE("Size Check") { CHECK(test_vec.size() == 10); }
+    SUBCASE("Properties Check") {
+        [[maybe_unused]] size_t row_size = 1;
         [[maybe_unused]] int expected_row_total = 1;
         for ([[maybe_unused]] const auto& row : test_vec) {
-            CHECK(row.front() == 1);
-            CHECK(row.back() == 1);
-            CHECK(row.size() == row_size++);
-            CHECK(std::accumulate(row.begin(), row.end(), 0) == expected_row_total);
-            expected_row_total *= 2;
+            SUBCASE("Front and back element is 1") {
+                CHECK(row.front() == 1);
+                CHECK(row.back() == 1);
+            }
+            SUBCASE("row size increases by 1") { CHECK(row.size() == row_size++); }
+            SUBCASE("sum of a row increases in power of 2") {
+                CHECK(std::accumulate(row.begin(), row.end(), 0) == expected_row_total);
+                expected_row_total *= 2;
+            }
+            SUBCASE("row has symmetrical numbers") {
+                [[maybe_unused]] auto front = row | std::views::take(row.size() / 2);
+                [[maybe_unused]] auto back = row | std::views::reverse | std::views::take(row.size() / 2);
+                CHECK(std::ranges::equal(front, back));
+            }
         }
     }
 }

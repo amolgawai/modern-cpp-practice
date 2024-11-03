@@ -90,24 +90,24 @@ find_lto(CXX)
 
 
 
-add_executable(IntroApp)
-target_compile_definitions(IntroApp PRIVATE -DDOCTEST_CONFIG_DISABLE)
-target_include_directories(IntroApp PRIVATE "${PROJECT_SOURCE_DIR}")
+add_executable(run_examples)
+target_compile_definitions(run_examples PRIVATE -DDOCTEST_CONFIG_DISABLE)
+target_include_directories(run_examples PRIVATE "${PROJECT_SOURCE_DIR}")
 if(ENABLE_TESTING)
     enable_testing()
-    add_executable(main_tests)
-    target_compile_features(main_tests PRIVATE cxx_std_20)
-    target_include_directories(main_tests PRIVATE "${PROJECT_SOURCE_DIR}")
-    target_link_libraries(main_tests PUBLIC fmt::fmt doctest::doctest)
+    add_executable(run_tests)
+    target_compile_features(run_tests PRIVATE cxx_std_20)
+    target_include_directories(run_tests PRIVATE "${PROJECT_SOURCE_DIR}")
+    target_link_libraries(run_tests PUBLIC fmt::fmt doctest::doctest)
 else()
     add_definitions( "-DDOCTEST_CONFIG_DISABLE" )
 endif()
 add_subdirectory("src")
 
-target_compile_features(IntroApp PRIVATE cxx_std_20)
-set_target_properties(IntroApp PROPERTIES OUTPUT_NAME "IntroApp")
+target_compile_features(run_examples PRIVATE cxx_std_20)
+set_target_properties(run_examples PROPERTIES OUTPUT_NAME "run_examples")
 target_set_warnings(
-    IntroApp
+    run_examples
     ENABLE
     ALL
     AS_ERROR
@@ -116,5 +116,5 @@ target_set_warnings(
     Annoying
 ) # Set warnings (if needed).
 
-# target_link_libraries(IntroApp cxxopts::cxxopts fmt::fmt)
-target_link_libraries(IntroApp PUBLIC cxxopts::cxxopts fmt::fmt doctest::doctest)
+# target_link_libraries(run_examples cxxopts::cxxopts fmt::fmt)
+target_link_libraries(run_examples PUBLIC cxxopts::cxxopts fmt::fmt doctest::doctest)
