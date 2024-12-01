@@ -16,6 +16,24 @@ The code is for practice and hence might not be the best according to standards 
   # configure with code quality tools namely sanitizers, cppcheck, include what you use (iwyu), codecoverage
    cmake -S . -B build -GNinja -DUSE_SANITIZER='Memory;MemoryWithOrigins;Thread;Leak;Address;Undefined' -DUSE_STATIC_ANALYZER='clang-tidy;iwyu;cppcheck' -DENABLE_CODE_COVERAGE=ON -DCMAKE_BUILD_TYPE=Coverage
 #+END_SRC
+* * Generating diagrams using clang-uml
+#+BEGIN_SRC shell
+  # Run clang-uml in the project's top directory:
+  clang-uml
+  # or to see generation progress for each diagram
+  clang-uml --progress
+  # Generate SVG images from the PlantUML diagrams:
+  plantuml -tsvg diagrams/*.puml
+
+  # or generate also MermaidJS diagram
+  clang-uml --progress -n some_class_diagram -g mermaid
+  mmdc -i diagrams/some_class_diagram.mmd -o diagrams/some_class_diagram.svg
+
+  # Add another diagram:
+  clang-uml --add-sequence-diagram another_diagram
+  # list the diagrams defined in the config file:
+  clang-uml -l
+#+END_SRC
 * ☛ TODO Practice Plan
 * References
 - [[https://www.manning.com/books/learn-c-plus-plus-by-example][Book - Learn C++ by example]]

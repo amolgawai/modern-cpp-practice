@@ -11,8 +11,8 @@ namespace bk_LrnCPPByEx {
         PasclesTriangle(PasclesTriangle &&) = default;
         PasclesTriangle &operator=(const PasclesTriangle &) = delete;
         PasclesTriangle &operator=(PasclesTriangle &&) = default;
-        [[nodiscard]] auto name() const -> std::string override { return std::string{"Pascales Triangle"}; };
-        [[nodiscard]] auto description() const -> std::string override {
+        [[nodiscard]] auto constexpr name() const -> std::string override { return std::string{"Pascales Triangle"}; };
+        [[nodiscard]] auto constexpr description() const -> std::string override {
             return std::string{"Constructs Pascles Triangle"};
         }
         void run() const override;

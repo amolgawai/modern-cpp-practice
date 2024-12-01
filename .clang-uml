@@ -1,0 +1,36 @@
+compilation_database_dir: ./build
+output_directory: docs/diagrams
+generate_packages: true
+diagrams:
+  class_diagram:
+    type: class
+    generate_packages: true
+    glob:
+      - src/*.cpp
+      - src/*/*.cpp
+    using_namespace:
+      - cpp_practice
+    exclude:
+      namespaces:
+        - fmt
+        - std
+        - cxxopts
+  sequence:
+    type: sequence
+    glob:
+      - src/*.cpp
+    combine_free_functions_into_file_participants: true
+    inline_lambda_messages: false
+    generate_message_comments: false
+    fold_repeated_activities: false
+    generate_condition_statements: false
+    include:
+      paths:
+        - src
+    exclude:
+      namespaces:
+        - std
+        - fmt
+        - cxxopts
+    start_from:
+      - function: main(int,const char **)

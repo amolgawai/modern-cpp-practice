@@ -7,7 +7,7 @@
 #include "cli_io.hpp"                  // for show_msg_error, show_msg_title
 #include "example_runner.hpp"          // for ExampleRunner
 
-auto process_options(int argc, char** argv) -> int {
+auto process_options(int argc, const char** argv) -> int {
     cxxopts::Options options(*argv, "A program to welcome the world!");
 
     options.add_options()("h,help", "Show help")("v,version", "Print the current version number");
@@ -20,7 +20,8 @@ auto process_options(int argc, char** argv) -> int {
         }
 
         if (result["version"].as<bool>()) {
-            std::cout << "1.0.0" << "\n";
+            std::cout << "1.0.0"
+                      << "\n";
             return 0;
         }
     } catch (const std::exception& e) {
@@ -40,7 +41,7 @@ auto run_examples() {
     exampleRunner.runExamples(examples1);
 }
 
-auto main(int argc, char** argv) -> int {
+auto main(int argc, const char** argv) -> int {
     try {
         auto res = process_options(argc, argv);
         if (res == 0) {
