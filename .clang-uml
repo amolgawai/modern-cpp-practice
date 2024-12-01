@@ -34,3 +34,22 @@ diagrams:
         - cxxopts
     start_from:
       - function: main(int,const char **)
+  packages:
+    type: package
+    glob:
+      - src/*.cpp
+    exclude:
+      namespaces:
+      - std
+      - fmt
+      - cxxopts
+      - doctest
+  includes:
+    type: include
+    glob:
+      - src/*.cpp
+      - src/*/*.cpp
+    relative_to: .
+    include:
+      paths:
+        - src
